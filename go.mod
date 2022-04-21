@@ -53,7 +53,6 @@ require (
 	github.com/montanaflynn/stats v0.6.6
 	github.com/multiformats/go-multiaddr v0.5.0
 	github.com/multiformats/go-multicodec v0.4.0
-	github.com/multiformats/go-multihash v0.1.0
 	github.com/prometheus/client_golang v1.11.0
 	github.com/shopspring/decimal v1.3.1
 	github.com/showwin/speedtest-go v1.1.4
@@ -67,6 +66,7 @@ require (
 	github.com/warpfork/go-testmark v0.9.0 // indirect
 	github.com/whyrusleeping/cbor-gen v0.0.0-20220224212727-7a699437a831
 	go.elastic.co/apm/module/apmhttp v1.15.0
+	go.mongodb.org/mongo-driver v1.7.3
 	go.opencensus.io v0.23.0
 	go.uber.org/goleak v1.1.11 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c

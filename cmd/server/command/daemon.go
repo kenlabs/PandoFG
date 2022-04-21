@@ -23,6 +23,8 @@ import (
 	libp2pHost "github.com/libp2p/go-libp2p-core/host"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/spf13/cobra"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"math"
 	"os"
 	"os/signal"
@@ -45,6 +47,12 @@ func DaemonCmd() *cobra.Command {
 			if err != nil {
 				return fmt.Errorf(failedError, err)
 			}
+
+			mongoClient, err := connectMetadataStore(Opt.MetaStore.Type, Opt.MetaStore.ConnectionURI)
+			if err != nil {
+				fmt.Errorf(failedError, err)
+			}
+			Opt.MetaStore.Client = mongoClient
 
 			storeInstance, err := initStoreInstance()
 			if err != nil {
@@ -184,6 +192,7 @@ func initStoreInstance() (*core.StoreInstance, error) {
 		CacheStore:     cacheStore,
 		MutexDataStore: mutexDataStore,
 		BlockStore:     blockStore,
+		MetaStore:      Opt.MetaStore.Client,
 	}, nil
 }
 
@@ -289,4 +298,23 @@ func initCore(storeInstance *core.StoreInstance, p2pHost libp2pHost.Host) (*core
 	c.LegsCore.SetRatelimiter(rateLimiter)
 
 	return c, nil
+}
+
+func connectMetadataStore(storeType string, connectionURI string) (*mongo.Client, error) {
+	switch storeType {
+	case "mongodb":
+		clientOptions := options.Client().ApplyURI(connectionURI)
+		client, err := mongo.Connect(context.TODO(), clientOptions)
+		if err != nil {
+			return nil, err
+		}
+		err = client.Ping(context.TODO(), nil)
+		if err != nil {
+			return nil, err
+		}
+		return client, nil
+	default:
+		return nil, fmt.Errorf("metadata store type: %s not supported", storeType)
+	}
+
 }

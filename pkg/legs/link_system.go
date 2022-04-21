@@ -60,6 +60,12 @@ func MkLinkSystem(bs blockstore.Blockstore, core *Core, reg *registry.Registry) 
 				metadataPayloadBytes, _ := metadataPayload.AsBytes()
 				log.Debugf("metadata:\n\tProvider: %v\n\tPayload: %v\n",
 					metadataProviderStr, string(metadataPayloadBytes))
+				if core != nil {
+					err = CommitPayloadToMetastore(metadataPayloadBytes, core.options.MetaStore.Client)
+					if err != nil {
+						log.Debugf("unmarshal bytes to json object failed, err: %v", err)
+					}
+				}
 				block, err := blocks.NewBlockWithCid(origBuf, c)
 				if err != nil {
 					return err

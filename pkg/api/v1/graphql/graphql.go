@@ -6,10 +6,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/graphql-go/graphql"
 	"github.com/ipfs/go-cid"
+	"github.com/kenlabs/pando/pkg/types/model"
+	"github.com/kenlabs/pando/pkg/types/schema"
 	"github.com/libp2p/go-libp2p-core/peer"
+	"go.mongodb.org/mongo-driver/bson"
 	"html/template"
 	"io"
 	"net/http"
+	"time"
 )
 
 func (a *API) registerGraphql() {
@@ -81,6 +85,53 @@ func (a *API) NewSchema() error {
 			Fields: graphql.Fields{
 				"State":    a.newStateField(),
 				"SnapShot": a.newSnapshotField(),
+				"GetProvidersLocations": &graphql.Field{
+					Type: schema.FilecoinGreenMinerLocationsType(),
+					Args: graphql.FieldConfigArgument{
+						"minerID": &graphql.ArgumentConfig{
+							Type: graphql.NewNonNull(graphql.String),
+						},
+					},
+					Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+						var err error
+						var results []model.MinerLocationsModel
+
+						minerID := p.Args["minerID"].(string)
+						q := []interface{}{
+							bson.M{"$match": bson.M{"minerLocations.miner": minerID}},
+							bson.M{"$addFields": bson.M{
+								"minerLocations": bson.M{
+									"$filter": bson.M{
+										"input": "$minerLocations",
+										"as":    "minerLocation",
+										"cond": bson.M{
+											"$in": []interface{}{
+												"$$minerLocation.miner",
+												[]string{minerID},
+											},
+										},
+									},
+								},
+							}},
+						}
+
+						ctx, _ := context.WithTimeout(context.Background(), 10*time.Minute)
+						result, err := a.core.StoreInstance.MetaStore.
+							Database("pando-fg").
+							Collection("locations").
+							Aggregate(ctx, q)
+						if err != nil {
+							logger.Errorf("decode location results failed: %v", err)
+							return nil, err
+						}
+
+						err = result.All(ctx, &results)
+						if err != nil {
+							return nil, err
+						}
+						return results[0], nil
+					},
+				},
 			},
 		},
 		),

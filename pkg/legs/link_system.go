@@ -57,35 +57,8 @@ func MkLinkSystem(bs blockstore.Blockstore, core *Core, reg *registry.Registry) 
 				metadataProvider, _ := n.LookupByString("Provider")
 				metadataProviderStr, _ := metadataProvider.AsString()
 				metadataPayload, _ := n.LookupByString("Payload")
-				//type entry struct {
-				//	key   string
-				//	value datamodel.Node
-				//}
-				//var entries []entry
-				//for metadataMapIterator := metadataPayload.MapIterator(); !metadataMapIterator.Done(); {
-				//	k, v, err := metadataMapIterator.Next()
-				//	if err != nil {
-				//		log.Errorf("retrieve metadata map iterator failed, err: %v", err)
-				//		return err
-				//	}
-				//	keyStr, err := k.AsString()
-				//	if err != nil {
-				//		log.Errorf("cannot convert key to string in metadata payload: %v", err)
-				//	}
-				//	entries = append(entries, entry{keyStr, v})
-				//}
-
 				log.Debugf("metadata:\n\tProvider: %v\n\tPryload-Type:%v\n",
 					metadataProviderStr, metadataPayload.Kind())
-				//for _, entry := range entries {
-				//	k := entry.key
-				//
-				//	if err != nil {
-				//		log.Errorf("convert value in metadata to bytes failed, err: %v", err)
-				//		continue
-				//	}
-				//	log.Debugf("key: %s, value: %s", k, v)
-				//}
 				if core != nil {
 					err = CommitPayloadToMetastore(metadataPayload, core.options.MetaStore.Client)
 					if err != nil {

@@ -8,10 +8,6 @@ import (
 )
 
 func CommitPayloadToMetastore(data ipld.Node, client *mongo.Client) error {
-	//var payload map[string]interface{}
-	//if err := json.Unmarshal(data, &payload); err != nil {
-	//	return err
-	//}
 	locations, err := schema.UnwrapLocation(data)
 	locationCollection := client.Database("pando-fg").Collection("locations")
 	result, err := locationCollection.InsertOne(context.TODO(), locations)

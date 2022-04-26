@@ -9,8 +9,8 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/spf13/cobra"
 
-	"github.com/kenlabs/pando/cmd/client/command/api"
-	"github.com/kenlabs/pando/pkg/register"
+	"github.com/kenlabs/pandofg/cmd/client/command/api"
+	"github.com/kenlabs/pandofg/pkg/register"
 )
 
 const registerPath = "/register"

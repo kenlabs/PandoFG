@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/ipfs/go-cid"
 	leveldb "github.com/ipfs/go-ds-leveldb"
-	"github.com/kenlabs/pando/pkg/option"
+	"github.com/kenlabs/pandofg/pkg/option"
 	"github.com/libp2p/go-libp2p-core/peer"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"

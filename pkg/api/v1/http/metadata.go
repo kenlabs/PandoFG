@@ -3,17 +3,17 @@ package http
 import (
 	"context"
 	"fmt"
-	"github.com/kenlabs/pando/pkg/api/v1"
-	"github.com/kenlabs/pando/pkg/statetree"
-	snapshotTypes "github.com/kenlabs/pando/pkg/statetree/types"
+	"github.com/kenlabs/pandofg/pkg/api/v1"
+	"github.com/kenlabs/pandofg/pkg/statetree"
+	snapshotTypes "github.com/kenlabs/pandofg/pkg/statetree/types"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/ipfs/go-cid"
 
-	"github.com/kenlabs/pando/pkg/api/types"
-	"github.com/kenlabs/pando/pkg/metrics"
+	"github.com/kenlabs/pandofg/pkg/api/types"
+	"github.com/kenlabs/pandofg/pkg/metrics"
 )
 
 func (a *API) registerMetadata() {

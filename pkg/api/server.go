@@ -10,9 +10,9 @@ import (
 	"time"
 
 	logging "github.com/ipfs/go-log/v2"
-	"github.com/kenlabs/pando/pkg/api/core"
-	"github.com/kenlabs/pando/pkg/option"
-	"github.com/kenlabs/pando/pkg/util/multiaddress"
+	"github.com/kenlabs/pandofg/pkg/api/core"
+	"github.com/kenlabs/pandofg/pkg/option"
+	"github.com/kenlabs/pandofg/pkg/util/multiaddress"
 )
 
 var logger = logging.Logger("http-server")

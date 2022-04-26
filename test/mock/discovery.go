@@ -3,9 +3,9 @@ package mock
 import (
 	"context"
 	"errors"
-	"github.com/kenlabs/pando/pkg/option"
-	"github.com/kenlabs/pando/pkg/registry"
-	"github.com/kenlabs/pando/pkg/registry/discovery"
+	"github.com/kenlabs/pandofg/pkg/option"
+	"github.com/kenlabs/pandofg/pkg/registry"
+	"github.com/kenlabs/pandofg/pkg/registry/discovery"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/multiformats/go-multiaddr"
 	"math/big"

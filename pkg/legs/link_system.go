@@ -13,8 +13,8 @@ import (
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
 	"github.com/ipld/go-ipld-prime/multicodec"
 	"github.com/ipld/go-ipld-prime/node/basicnode"
-	"github.com/kenlabs/pando/pkg/registry"
-	"github.com/kenlabs/pando/pkg/types/schema"
+	"github.com/kenlabs/pandofg/pkg/registry"
+	"github.com/kenlabs/pandofg/pkg/types/schema"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"io"
 )
@@ -57,11 +57,37 @@ func MkLinkSystem(bs blockstore.Blockstore, core *Core, reg *registry.Registry) 
 				metadataProvider, _ := n.LookupByString("Provider")
 				metadataProviderStr, _ := metadataProvider.AsString()
 				metadataPayload, _ := n.LookupByString("Payload")
-				metadataPayloadBytes, _ := metadataPayload.AsBytes()
-				log.Debugf("metadata:\n\tProvider: %v\n\tPayload: %v\n",
-					metadataProviderStr, string(metadataPayloadBytes))
+				//type entry struct {
+				//	key   string
+				//	value datamodel.Node
+				//}
+				//var entries []entry
+				//for metadataMapIterator := metadataPayload.MapIterator(); !metadataMapIterator.Done(); {
+				//	k, v, err := metadataMapIterator.Next()
+				//	if err != nil {
+				//		log.Errorf("retrieve metadata map iterator failed, err: %v", err)
+				//		return err
+				//	}
+				//	keyStr, err := k.AsString()
+				//	if err != nil {
+				//		log.Errorf("cannot convert key to string in metadata payload: %v", err)
+				//	}
+				//	entries = append(entries, entry{keyStr, v})
+				//}
+
+				log.Debugf("metadata:\n\tProvider: %v\n\tPryload-Type:%v\n",
+					metadataProviderStr, metadataPayload.Kind())
+				//for _, entry := range entries {
+				//	k := entry.key
+				//
+				//	if err != nil {
+				//		log.Errorf("convert value in metadata to bytes failed, err: %v", err)
+				//		continue
+				//	}
+				//	log.Debugf("key: %s, value: %s", k, v)
+				//}
 				if core != nil {
-					err = CommitPayloadToMetastore(metadataPayloadBytes, core.options.MetaStore.Client)
+					err = CommitPayloadToMetastore(metadataPayload, core.options.MetaStore.Client)
 					if err != nil {
 						log.Debugf("unmarshal bytes to json object failed, err: %v", err)
 					}

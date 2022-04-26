@@ -9,15 +9,15 @@ import (
 	dataStoreFactory "github.com/ipfs/go-ds-leveldb"
 	blockStoreFactory "github.com/ipfs/go-ipfs-blockstore"
 	logging "github.com/ipfs/go-log/v2"
-	"github.com/kenlabs/pando/pkg/api"
-	"github.com/kenlabs/pando/pkg/api/core"
-	"github.com/kenlabs/pando/pkg/legs"
-	"github.com/kenlabs/pando/pkg/lotus"
-	"github.com/kenlabs/pando/pkg/metadata"
-	"github.com/kenlabs/pando/pkg/policy"
-	"github.com/kenlabs/pando/pkg/registry"
-	"github.com/kenlabs/pando/pkg/statetree"
-	"github.com/kenlabs/pando/pkg/statetree/types"
+	"github.com/kenlabs/pandofg/pkg/api"
+	"github.com/kenlabs/pandofg/pkg/api/core"
+	"github.com/kenlabs/pandofg/pkg/legs"
+	"github.com/kenlabs/pandofg/pkg/lotus"
+	"github.com/kenlabs/pandofg/pkg/metadata"
+	"github.com/kenlabs/pandofg/pkg/policy"
+	"github.com/kenlabs/pandofg/pkg/registry"
+	"github.com/kenlabs/pandofg/pkg/statetree"
+	"github.com/kenlabs/pandofg/pkg/statetree/types"
 	"github.com/libp2p/go-libp2p"
 	"github.com/libp2p/go-libp2p-core/crypto"
 	libp2pHost "github.com/libp2p/go-libp2p-core/host"
@@ -32,7 +32,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/kenlabs/pando/pkg/system"
+	"github.com/kenlabs/pandofg/pkg/system"
 )
 
 var log = logging.Logger("pando")

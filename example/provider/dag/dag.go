@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	peerHelper "github.com/kenlabs/pando/pkg/util/peer"
+	peerHelper "github.com/kenlabs/pandofg/pkg/util/peer"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
-	pandoSdk "github.com/kenlabs/pando/sdk/pkg/provider"
+	pandoSdk "github.com/kenlabs/pandofg/sdk/pkg/provider"
 )
 
 const (

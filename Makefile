@@ -26,7 +26,7 @@ ifndef GIT_COMMIT
 endif
 
 # Build Flags
-GO_LD_FLAGS= "-s -w -X github.com/kenlabs/pando/pkg/version.RELEASE=${RELEASE} -X github.com/kenlabs/pando/pkg/version.COMMIT=${GIT_COMMIT} -X github.com/kenlabs/pando/pkg/version.REPO=${GIT_REPO_INFO}"
+GO_LD_FLAGS= "-s -w -X github.com/kenlabs/pandofg/pkg/version.RELEASE=${RELEASE} -X github.com/kenlabs/pandofg/pkg/version.COMMIT=${GIT_COMMIT} -X github.com/kenlabs/pandofg/pkg/version.REPO=${GIT_REPO_INFO}"
 
 # Cgo is disabled by default
 ENABLE_CGO= CGO_ENABLED=0

@@ -6,8 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/graphql-go/graphql"
 	"github.com/ipfs/go-cid"
-	"github.com/kenlabs/pando/pkg/types/model"
-	"github.com/kenlabs/pando/pkg/types/schema"
+	"github.com/kenlabs/pandofg/pkg/types/schema"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"go.mongodb.org/mongo-driver/bson"
 	"html/template"
@@ -94,7 +93,7 @@ func (a *API) NewSchema() error {
 					},
 					Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 						var err error
-						var results []model.MinerLocationsModel
+						var results []schema.MinerLocationsModel
 
 						minerID := p.Args["minerID"].(string)
 						q := []interface{}{

@@ -6,11 +6,11 @@ import (
 	"github.com/ipfs/go-ds-leveldb"
 	"github.com/ipfs/go-ipfs-blockstore"
 	"github.com/ipld/go-ipld-prime"
-	"github.com/kenlabs/pando/pkg/legs"
-	"github.com/kenlabs/pando/pkg/lotus"
-	"github.com/kenlabs/pando/pkg/metadata"
-	"github.com/kenlabs/pando/pkg/registry"
-	"github.com/kenlabs/pando/pkg/statetree"
+	"github.com/kenlabs/pandofg/pkg/legs"
+	"github.com/kenlabs/pandofg/pkg/lotus"
+	"github.com/kenlabs/pandofg/pkg/metadata"
+	"github.com/kenlabs/pandofg/pkg/registry"
+	"github.com/kenlabs/pandofg/pkg/statetree"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 

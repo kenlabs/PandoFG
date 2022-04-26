@@ -5,9 +5,9 @@ import (
 	coremetrics "github.com/filecoin-project/go-indexer-core/metrics"
 	"github.com/gin-gonic/gin"
 	adapter "github.com/gwatts/gin-adapter"
-	"github.com/kenlabs/pando/pkg/api/types"
-	"github.com/kenlabs/pando/pkg/api/v1"
-	"github.com/kenlabs/pando/pkg/metrics"
+	"github.com/kenlabs/pandofg/pkg/api/types"
+	"github.com/kenlabs/pandofg/pkg/api/v1"
+	"github.com/kenlabs/pandofg/pkg/metrics"
 	"net/http"
 	"strings"
 )

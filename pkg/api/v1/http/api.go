@@ -3,10 +3,10 @@ package http
 import (
 	"github.com/gin-gonic/gin"
 	logging "github.com/ipfs/go-log/v2"
-	"github.com/kenlabs/pando/pkg/api/core"
-	"github.com/kenlabs/pando/pkg/option"
+	"github.com/kenlabs/pandofg/pkg/api/core"
+	"github.com/kenlabs/pandofg/pkg/option"
 
-	"github.com/kenlabs/pando/pkg/api/types"
+	"github.com/kenlabs/pandofg/pkg/api/types"
 )
 
 var logger = logging.Logger("v1HttpAPI")

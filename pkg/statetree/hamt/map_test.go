@@ -2,9 +2,9 @@ package hamt
 
 import (
 	"context"
-	"github.com/kenlabs/pando/pkg/statetree/types"
+	"github.com/kenlabs/pandofg/pkg/statetree/types"
 	"github.com/stretchr/testify/assert"
-	//"github.com/kenlabs/pando/statetree/hamt"
+	//"github.com/kenlabs/pandofg/statetree/hamt"
 
 	"fmt"
 	"github.com/filecoin-project/specs-actors/v5/actors/builtin"

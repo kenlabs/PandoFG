@@ -70,13 +70,13 @@ illegal provider from falsely using the peer ID of other providers.
 3. Create a provider instance with Pando SDK, then connect to Pando, initialize a metadata instance and append new metadata if you need.
 4. Push the latest metadata instance.
 
-Check out [these examples](https://github.com/kenlabs/pando/tree/main/example) for more details.
+Check out [these examples](https://github.com/kenlabs/pandofg/tree/main/example) for more details.
 
 ### As a Consumer
 To fetch metadata/snapshot status and content via GraphQL API, 
 [click here to get a try and dig more](https://pando-graphql.kencloud.com/).
 
-Check out [consumer examples](https://github.com/kenlabs/pando/tree/main/example/consumer/dag) on how to consume Pando data.
+Check out [consumer examples](https://github.com/kenlabs/pandofg/tree/main/example/consumer/dag) on how to consume Pando data.
 
 ## Getting Started
 ### How Pando persists providers data
@@ -210,7 +210,7 @@ Discovery.Timeout (stirng), discovery timeout
 - Discovery.Timeout
 
 AccountLevel.Threshold (string slice), balance bound of provider, 
-see details at [rate-limit doc](https://github.com/kenlabs/pando/blob/main/docs/ratelimit.md)
+see details at [rate-limit doc](https://github.com/kenlabs/pandofg/blob/main/docs/ratelimit.md)
 - --account-level
 - PD_ACCOUNTLEVEL_THRESHOLD
 - AccountLevel.Threshold

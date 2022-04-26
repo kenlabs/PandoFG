@@ -2,7 +2,7 @@ package http
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/kenlabs/pando/docs"
+	"github.com/kenlabs/pandofg/docs"
 	"net/http"
 )
 

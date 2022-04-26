@@ -2,8 +2,8 @@ package lotus
 
 import (
 	"context"
-	"github.com/kenlabs/pando/pkg/registry"
-	"github.com/kenlabs/pando/pkg/registry/discovery"
+	"github.com/kenlabs/pandofg/pkg/registry"
+	"github.com/kenlabs/pandofg/pkg/registry/discovery"
 	"github.com/libp2p/go-libp2p-core/peer"
 	. "github.com/smartystreets/goconvey/convey"
 	"math/big"

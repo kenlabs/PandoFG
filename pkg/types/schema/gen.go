@@ -13,7 +13,7 @@ import (
 	gengo "github.com/ipld/go-ipld-prime/schema/gen/go"
 )
 
-//go:embed schema.ipldsch
+//go:embed metadata.ipldsch
 var schemaSrc []byte
 
 func main() {

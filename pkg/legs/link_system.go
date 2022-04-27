@@ -57,6 +57,7 @@ func MkLinkSystem(bs blockstore.Blockstore, core *Core, reg *registry.Registry) 
 				metadataProvider, _ := n.LookupByString("Provider")
 				metadataProviderStr, _ := metadataProvider.AsString()
 				metadataPayload, _ := n.LookupByString("Payload")
+
 				log.Debugf("metadata:\n\tProvider: %v\n\tPryload-Type:%v\n",
 					metadataProviderStr, metadataPayload.Kind())
 				if core != nil {

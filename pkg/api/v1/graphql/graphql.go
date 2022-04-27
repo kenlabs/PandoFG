@@ -9,6 +9,7 @@ import (
 	"github.com/kenlabs/pandofg/pkg/types/schema"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"html/template"
 	"io"
 	"net/http"
@@ -98,6 +99,7 @@ func (a *API) NewSchema() error {
 						minerID := p.Args["minerID"].(string)
 						q := []interface{}{
 							bson.M{"$match": bson.M{"minerLocations.miner": minerID}},
+							bson.M{"$sort": bson.M{"date": -1}},
 							bson.M{"$addFields": bson.M{
 								"minerLocations": bson.M{
 									"$filter": bson.M{
@@ -115,10 +117,11 @@ func (a *API) NewSchema() error {
 						}
 
 						ctx, _ := context.WithTimeout(context.Background(), 10*time.Minute)
+						opts := options.Aggregate().SetAllowDiskUse(true)
 						result, err := a.core.StoreInstance.MetaStore.
 							Database("pando-fg").
 							Collection("locations").
-							Aggregate(ctx, q)
+							Aggregate(ctx, q, opts)
 						if err != nil {
 							logger.Errorf("decode location results failed: %v", err)
 							return nil, err

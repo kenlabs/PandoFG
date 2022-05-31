@@ -89,49 +89,65 @@ func (a *API) NewSchema() error {
 					Type: schema.FilecoinGreenMinerLocationsType(),
 					Args: graphql.FieldConfigArgument{
 						"minerID": &graphql.ArgumentConfig{
-							Type: graphql.NewNonNull(graphql.String),
+							Type: graphql.String,
 						},
 					},
 					Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-						var err error
-						var results []schema.MinerLocationsModel
+						var minerID string
+						minerIDArg, exists := p.Args["minerID"]
+						if exists {
+							minerID = minerIDArg.(string)
+						}
 
-						minerID := p.Args["minerID"].(string)
-						q := []interface{}{
-							bson.M{"$match": bson.M{"minerLocations.miner": minerID}},
-							bson.M{"$sort": bson.M{"date": -1}},
-							bson.M{"$addFields": bson.M{
-								"minerLocations": bson.M{
-									"$filter": bson.M{
-										"input": "$minerLocations",
-										"as":    "minerLocation",
-										"cond": bson.M{
-											"$in": []interface{}{
-												"$$minerLocation.miner",
-												[]string{minerID},
+						if minerID != "" {
+							q := []interface{}{
+								bson.M{"$match": bson.M{"minerLocations.miner": minerID}},
+								bson.M{"$sort": bson.M{"date": -1}},
+								bson.M{"$addFields": bson.M{
+									"minerLocations": bson.M{
+										"$filter": bson.M{
+											"input": "$minerLocations",
+											"as":    "minerLocation",
+											"cond": bson.M{
+												"$in": []interface{}{
+													"$$minerLocation.miner",
+													[]string{minerID},
+												},
 											},
 										},
 									},
-								},
-							}},
+								}},
+							}
+							ctx, _ := context.WithTimeout(context.Background(), 10*time.Minute)
+							opts := options.Aggregate().SetAllowDiskUse(true)
+							result, err := a.core.StoreInstance.MetaStore.
+								Database("pando-fg").
+								Collection("locations").
+								Aggregate(ctx, q, opts)
+							if err != nil {
+								logger.Errorf("decode location results failed: %v", err)
+								return nil, err
+							}
+							var results []schema.MinerLocationsModel
+							err = result.All(ctx, &results)
+							if err != nil {
+								return nil, err
+							}
+							return results[0], nil
+						} else {
+							sortOpt := options.FindOne().SetSort(bson.M{"date": -1})
+							ctx, _ := context.WithTimeout(context.Background(), 10*time.Minute)
+							var result schema.MinerLocationsModel
+							err = a.core.StoreInstance.MetaStore.
+								Database("pando-fg").
+								Collection("locations").
+								FindOne(ctx, bson.M{}, sortOpt).
+								Decode(&result)
+							if err != nil {
+								return nil, err
+							}
+							return result, err
 						}
-
-						ctx, _ := context.WithTimeout(context.Background(), 10*time.Minute)
-						opts := options.Aggregate().SetAllowDiskUse(true)
-						result, err := a.core.StoreInstance.MetaStore.
-							Database("pando-fg").
-							Collection("locations").
-							Aggregate(ctx, q, opts)
-						if err != nil {
-							logger.Errorf("decode location results failed: %v", err)
-							return nil, err
-						}
-
-						err = result.All(ctx, &results)
-						if err != nil {
-							return nil, err
-						}
-						return results[0], nil
 					},
 				},
 			},
